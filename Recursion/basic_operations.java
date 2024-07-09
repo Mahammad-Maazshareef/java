@@ -67,7 +67,7 @@ public class basic_operations {
         if (n==0){
             return;
         }
-        System.out.println(a);
+        System.out.print(a);
         int c= a+b;
         a=b;
         b=c;
@@ -84,7 +84,87 @@ public class basic_operations {
         else {
         return x * printPower(x, n/2) * printPower(x, n/2);
         }
+    }
+
+    // Reversing a String by using stack
+    public static void revString(String str,int idx){
+        if(idx==0){
+            System.out.print(str.charAt(idx));
+            return;
         }
+        System.out.print(str.charAt(idx));
+        revString(str, idx-1);
+    }
+    
+    // Finding First and Last occurence of a String
+
+    public static int first =-1;
+    public static int last =-1;
+
+    public static void findOccurence(String str,char ch,int idx){
+        if(idx==str.length()-1){
+            System.out.println("first element is "+first+" last element is "+last);
+            return;
+        }
+        if(str.charAt(idx)==ch){ 
+            if(first==-1){
+                first=idx;
+            }else{
+            last=idx;
+            }
+        }
+        findOccurence(str, ch, idx+1);
+
+    }
+
+    // An Array Strictly Increasing
+    public static boolean strictlyIncreasingArray(int [] arr , int idx ){
+        if (idx== arr.length-1){
+            return true;
+        }
+        if (arr[idx+1]>arr[idx]){
+            return strictlyIncreasingArray(arr, idx+1);
+        }
+        else{
+            return false;
+        }
+    }
+
+    // Move all the X to the end
+    public static void moveAllXToEnd(String str,int idx,int count,String newString){
+        
+        if (idx==str.length()){
+            for(int i=0 ;i<count;i++)
+            {
+                newString+='x';
+            }
+            System.out.println(newString);
+            return;
+        }
+        if (str.charAt(idx)=='x' ){
+            count++;
+            moveAllXToEnd(str, idx+1, count, newString);
+        }else{
+            newString +=str.charAt(idx);
+            moveAllXToEnd(str, idx+1, count, newString);
+        }
+    }
+
+    public static boolean [] map= new boolean[26];
+    public static void removeDuplicates(String str , int idx ,String newString){
+        if (idx== str.length()){
+            System.out.println(newString);
+            return ;
+        }
+        char currChar= str.charAt(idx);
+        if(map[currChar-'a']){
+            removeDuplicates(str, idx+1, newString);
+        }else{
+            newString+=currChar;
+            map[currChar-'a']=true;
+            removeDuplicates(str, idx+1, newString);
+        }
+    }
     public static void main(String[] args) {
         int  n=5;
         printNumbers(n);
@@ -97,5 +177,14 @@ public class basic_operations {
         int x = 2;
         int output = printPower(x, n);
         System.out.println(output);
+        String str ="abbccdda";
+        revString(str, str.length()-1);
+        System.out.println("\n");
+        findOccurence(str, 'A', 0);
+        int arr [] ={1,2,3,4,5,5};
+        System.out.println(strictlyIncreasingArray(arr, 0));
+        moveAllXToEnd(str, 0, 0, " ");
+        removeDuplicates(str, 0, " ");
     }
 }
+ 
